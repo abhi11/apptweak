@@ -43,7 +43,7 @@ func GetTopAppsInCategory(category, country, lang, kind, token string) (AppRespo
 	if err != nil {
 		return appResp, err
 	}
-	err = Bind(b, &appResp)
+	err = bind(b, &appResp)
 	if err != nil {
 		return appResp, err
 	}

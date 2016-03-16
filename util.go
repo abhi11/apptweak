@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Bind(body io.ReadCloser, v interface{}) error {
+func bind(body io.ReadCloser, v interface{}) error {
 	defer body.Close()
 	err := json.NewDecoder(body).Decode(v)
 	return err

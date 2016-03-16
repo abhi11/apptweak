@@ -77,7 +77,7 @@ func (r TopAndroidAppSearchRequest) Run() (AppResponse, error) {
 	if err != nil {
 		return appResp, err
 	}
-	err = Bind(b, &appResp)
+	err = bind(b, &appResp)
 	if err != nil {
 		return appResp, err
 	}
@@ -124,7 +124,7 @@ func (r AndroidAppTermSearchRequest) Run() (AppResponse, error) {
 	if err != nil {
 		return appResp, err
 	}
-	err = Bind(b, &appResp)
+	err = bind(b, &appResp)
 	if err != nil {
 		return appResp, err
 	}
