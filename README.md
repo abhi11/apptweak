@@ -11,8 +11,8 @@ import "github.com/abhi11/apptweak"
 
 func main() {
 	    token := os.Getenv("APPTWEAK_TOKEN")
-        auth := NewAuth(token) // token to be generated from apptweak website
-        params := Parameters{Lang: "en", Country: "us", Type: "free"}
+        auth := apptweak.NewAuth(token) // token to be generated from apptweak website
+        params := apptweak.Parameters{Lang: "en", Country: "us", Type: "free"}
      	r := apptweak.NewTopAndroidAppSearchRequest(auth, params, "Business")
 		resp, err := r.Run()
 }

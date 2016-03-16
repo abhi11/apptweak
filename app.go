@@ -32,7 +32,7 @@ type AppResponse struct {
 
 type Parameters struct {
 	// Mandatory and only for TermSearch Call.
-	// Do not use it for Top Search query
+	// Do not use it for TopSearch query, AppDetails query
 	Term string
 
 	// Optional. Default:us
@@ -43,7 +43,7 @@ type Parameters struct {
 
 	// Optional. Default: free. Possible Values : free | paid | grossing
 	// Use in TopSearchRequest
-	// Do not use it in TermSearchRequest
+	// Do not use it in TermSearchRequest, AppDetails query
 	Type string
 }
 
@@ -110,8 +110,6 @@ func (r AndroidAppTermSearchRequest) Run() (AppResponse, error) {
 	if r.ReqAuth.token == "" {
 		return appResp, AuthNotPresent
 	}
-
-	// Make term empty as it is not required
 	if r.Params.Term == "" {
 		return appResp, TermNotPresent
 	}

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 	"strings"
 )
 
@@ -37,4 +38,12 @@ func getUrlWithParams(url string, params Parameters) string {
 	}
 	url = url + strings.Join(plist, "&")
 	return url
+}
+
+func getRespForApplication(url, id, token string, p Parameters) (io.ReadCloser, error) {
+	fUrl := fmt.Sprintf(url, id)
+	fUrl = getUrlWithParams(fUrl, p)
+	header := make(http.Header)
+	header.Add("X-Apptweak-Key", token)
+	return httpGet(fUrl, header)
 }
