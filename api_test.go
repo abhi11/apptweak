@@ -6,7 +6,6 @@ import (
 	"testing"
 )
 
-/*
 func TestGetTopAppsInCategory(t *testing.T) {
 	token := os.Getenv("APPTWEAK_TOKEN")
 	resp, err := GetTopAppsInCategory("Lifestyle", "us", "en", "free", token)
@@ -49,7 +48,6 @@ func TestGetAndroidTermSearch(t *testing.T) {
 		fmt.Println("TestGetAndroidTermSearch::", i, app.String())
 	}
 }
-*/
 
 func TestGetAppDetails(t *testing.T) {
 	token := os.Getenv("APPTWEAK_TOKEN")
@@ -63,7 +61,6 @@ func TestGetAppDetails(t *testing.T) {
 	fmt.Println("TestGetAppDetails::", resp.AD.String())
 }
 
-/*
 func TestGetAppRating(t *testing.T) {
 	token := os.Getenv("APPTWEAK_TOKEN")
 	auth := NewAuth(token)
@@ -102,4 +99,3 @@ func TestGetAppStoreInfo(t *testing.T) {
 	}
 	fmt.Println("TestGetAppStoreInfo::", resp.StoreInfo.String())
 }
-*/
