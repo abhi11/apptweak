@@ -8,8 +8,8 @@ import (
 	"net/http"
 )
 
-func httpGet(url string, header http.Header) (io.ReadCloser, error) {
-	r, err := http.NewRequest("GET", url, nil)
+func httpRequest(method, url string, header http.Header) (io.ReadCloser, error) {
+	r, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -26,6 +26,11 @@ func httpGet(url string, header http.Header) (io.ReadCloser, error) {
 		return nil, errors.New(fmt.Sprintf("error code: %d", resp.StatusCode))
 	}
 	return resp.Body, err
+
+}
+
+func httpGet(url string, header http.Header) (io.ReadCloser, error) {
+	return httpRequest("GET", url, header)
 }
 
 func GetTopAppsInCategory(category, country, lang, kind, token string) (AppResponse, error) {
