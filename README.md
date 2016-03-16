@@ -13,11 +13,11 @@ func main() {
 	    token := os.Getenv("APPTWEAK_TOKEN")
         auth := NewAuth(token) // token to be generated from apptweak website
         params := Parameters{Lang: "en", Country: "us", Type: "free"}
-     	r := apptweak.NewTopAndroidAppSearchRequest(auth, , "Business")
+     	r := apptweak.NewTopAndroidAppSearchRequest(auth, params, "Business")
 		resp, err := r.Run()
 }
 ```
-See api_test.go for more details or check the wiki for documentation
+See [api_test.go](https://github.com/abhi11/apptweak/blob/master/api_test.go) for more details or check the wiki for documentation
 
 #### To know more about apptweak, visit their [site](https://apptweak.io/) and read API Docs
 
