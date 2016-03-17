@@ -19,8 +19,8 @@ func main() {
 ```
 See [api_test.go](https://github.com/abhi11/apptweak/blob/master/api_test.go) for more details or check the wiki for documentation
 
-#### To know more about apptweak, visit their [site](https://apptweak.io/) and read API Docs
+To know more about apptweak, visit their [site](https://apptweak.io/) and read API Docs
 
 #### TODO
-* Add feature: Wrapper for Application, App Keywords, App Trends
+* Add feature: Keywords Stats
 * Write documentation

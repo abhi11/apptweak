@@ -281,3 +281,116 @@ func NewAppReviewsRequest(auth Auth, params Parameters, id string) AppReviewsReq
 	appReq := AppReviewsRequest{ReqAuth: auth, Params: params, Id: id}
 	return appReq
 }
+
+type AppTrendsRequest struct {
+	ReqAuth Auth
+	Id      string
+}
+
+type AppTrend struct {
+	CategoryId  string `json:"category_id"`
+	CountryCode string `json:"country_code"`
+	EndDate     string `json:"end_date"`
+	StartDate   string `json:"start_date"`
+	Ranks       []int  `json:"ranks"`
+	Type        string `json:"type"`
+}
+
+func (a AppTrend) String() string {
+	jsonBytes, err := json.Marshal(a)
+	if err != nil {
+		return ""
+	}
+	return string(jsonBytes)
+}
+
+type AppTrendsResponse struct {
+	AppTrends []AppTrend `json:"content"`
+	Count     int        `json:"-"`
+}
+
+func (r AppTrendsRequest) Run() (AppTrendsResponse, error) {
+	url := "https://api.apptweak.com/android/applications/%s/trends.json?"
+	appResp := AppTrendsResponse{}
+
+	if r.ReqAuth.token == "" {
+		return appResp, AuthNotPresent
+	}
+	if r.Id == "" {
+		return appResp, ApplicationIdNotPresent
+	}
+
+	// Make term, type empty as it is not required
+	b, err := getRespForApplication(url, r.Id, r.ReqAuth.token, Parameters{})
+	if err != nil {
+		return appResp, err
+	}
+
+	err = bind(b, &appResp)
+	if err != nil {
+		return appResp, err
+	}
+	appResp.Count = len(appResp.AppTrends)
+	return appResp, nil
+}
+
+func NewAppTrendsRequest(auth Auth, id string) AppTrendsRequest {
+	appReq := AppTrendsRequest{ReqAuth: auth, Id: id}
+	return appReq
+}
+
+type AppKeywordsRankRequest struct {
+	ReqAuth Auth
+	Params  Parameters
+	Id      string
+}
+
+type KeywordRank struct {
+	Ranking int    `json:"ranking"`
+	Word    string `json:"word"`
+}
+
+func (k KeywordRank) String() string {
+	jsonBytes, err := json.Marshal(k)
+	if err != nil {
+		return ""
+	}
+	return string(jsonBytes)
+}
+
+type AppKeywordsRankResponse struct {
+	Rankings []KeywordRank `json:"content"`
+	Count    int           `json:"-"`
+}
+
+func (r AppKeywordsRankRequest) Run() (AppKeywordsRankResponse, error) {
+	url := "https://api.apptweak.com/android/applications/%s/keywords.json?"
+	appResp := AppKeywordsRankResponse{}
+
+	if r.ReqAuth.token == "" {
+		return appResp, AuthNotPresent
+	}
+	if r.Id == "" {
+		return appResp, ApplicationIdNotPresent
+	}
+
+	// Make term, type empty as it is not required
+	r.Params.Term = ""
+	r.Params.Type = ""
+	b, err := getRespForApplication(url, r.Id, r.ReqAuth.token, r.Params)
+	if err != nil {
+		return appResp, err
+	}
+
+	err = bind(b, &appResp)
+	if err != nil {
+		return appResp, err
+	}
+	appResp.Count = len(appResp.Rankings)
+	return appResp, nil
+}
+
+func NewAppKeywordsRankRequest(auth Auth, params Parameters, id string) AppKeywordsRankRequest {
+	appReq := AppKeywordsRankRequest{ReqAuth: auth, Params: params, Id: id}
+	return appReq
+}

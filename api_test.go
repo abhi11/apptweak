@@ -99,3 +99,33 @@ func TestGetAppStoreInfo(t *testing.T) {
 	}
 	fmt.Println("TestGetAppStoreInfo::", resp.StoreInfo.String())
 }
+
+func TestGetAppTrends(t *testing.T) {
+	token := os.Getenv("APPTWEAK_TOKEN")
+	auth := NewAuth(token)
+	r := NewAppTrendsRequest(auth, "com.facebook.katana")
+	resp, err := r.Run()
+	if err != nil {
+		fmt.Println("TestGetAppTrends::error getting app rating: ", err)
+		t.Fail()
+	}
+	fmt.Println("TestGetAppTrends:: count", resp.Count)
+	for i, r := range resp.AppTrends {
+		fmt.Println("TestGetAppTrends::", i, r.String())
+	}
+}
+
+func TestGetAppKeywordsRank(t *testing.T) {
+	token := os.Getenv("APPTWEAK_TOKEN")
+	auth := NewAuth(token)
+	r := NewAppKeywordsRankRequest(auth, Parameters{}, "com.facebook.katana")
+	resp, err := r.Run()
+	if err != nil {
+		fmt.Println("TestGetAppKeywordsRank::error getting app rating: ", err)
+		t.Fail()
+	}
+	fmt.Println("TestGetAppKeywordsRank:: count", resp.Count)
+	for i, r := range resp.Rankings {
+		fmt.Println("TestGetAppKeywordsRank::", i, r.String())
+	}
+}
