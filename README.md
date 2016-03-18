@@ -21,6 +21,17 @@ See [api_test.go](https://github.com/abhi11/apptweak/blob/master/api_test.go) fo
 
 To know more about apptweak, visit their [site](https://apptweak.io/) and read API Docs
 
+#### Running Tests
+To run the tests, API token is required, export the token in an ENV variable
+```
+$ export APPTWEAK_TOKEN=<your_api_token>
+```
+Then run,
+```
+go test
+```
+
 #### TODO
 * Add feature: Keywords Stats
 * Write documentation
+* Adding more wrappers simple to use

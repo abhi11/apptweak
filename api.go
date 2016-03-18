@@ -33,20 +33,13 @@ func httpGet(url string, header http.Header) (io.ReadCloser, error) {
 	return httpRequest("GET", url, header)
 }
 
+// Wrapper for Getting TopApps from a category
+// token is important to be passed
 func GetTopAppsInCategory(category, country, lang, kind, token string) (AppResponse, error) {
-	url := "https://api.apptweak.com/android/categories/%s/top.json?country=%s&language=%s&type=%s"
-	fUrl := fmt.Sprintf(url, category, country, lang, kind)
-	header := make(http.Header)
-	header.Add("X-Apptweak-Key", token)
-	appResp := AppResponse{}
-	b, err := httpGet(fUrl, header)
-	if err != nil {
-		return appResp, err
-	}
-	err = bind(b, &appResp)
-	if err != nil {
-		return appResp, err
-	}
-	appResp.Count = len(appResp.Apps)
-	return appResp, nil
+	var appResp AppResponse
+	auth := NewAuth(token)
+	params := Parameters{Country: country, Lang: lang, Type: kind}
+	req := NewTopAndroidAppSearchRequest(auth, params, category)
+	appResp, err := req.Run()
+	return appResp, err
 }

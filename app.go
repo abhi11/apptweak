@@ -113,7 +113,8 @@ func (r AndroidAppTermSearchRequest) Run() (AppResponse, error) {
 	if r.Params.Term == "" {
 		return appResp, TermNotPresent
 	}
-
+	// For Term based search type is not used
+	r.Params.Type = ""
 	url = getUrlWithParams(url, r.Params)
 	header := make(http.Header)
 	header.Add("X-Apptweak-Key", r.ReqAuth.token)
