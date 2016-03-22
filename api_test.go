@@ -37,7 +37,7 @@ func TestGetTopAndroidAppsInCategory(t *testing.T) {
 func TestGetAndroidTermSearch(t *testing.T) {
 	token := os.Getenv("APPTWEAK_TOKEN")
 	auth := NewAuth(token)
-	r := NewAndroidAppTermSearchRequest(auth, Parameters{Term: "happy"})
+	r := NewAndroidAppTermSearchRequest(auth, Parameters{Term: "relaxation"})
 	resp, err := r.Run()
 	if err != nil {
 		fmt.Println("TestGetAndroidTermSearch::error getting apps: ", err)
@@ -127,5 +127,18 @@ func TestGetAppKeywordsRank(t *testing.T) {
 	fmt.Println("TestGetAppKeywordsRank:: count", resp.Count)
 	for i, r := range resp.Rankings {
 		fmt.Println("TestGetAppKeywordsRank::", i, r.String())
+	}
+}
+
+func TestGetTopAppsForTerm(t *testing.T) {
+	token := os.Getenv("APPTWEAK_TOKEN")
+	appResp, err := GetTopAppsForTerm("book a hotel", "in", "en", token)
+	if err != nil {
+		fmt.Println("error getting apps for term: ", err)
+		t.Fail()
+		return
+	}
+	for i, app := range appResp.Apps {
+		fmt.Println("TestGetAndroidTermSearch::", i, app.String())
 	}
 }

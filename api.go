@@ -43,3 +43,10 @@ func GetTopAppsInCategory(category, country, lang, kind, token string) (AppRespo
 	appResp, err := req.Run()
 	return appResp, err
 }
+
+func GetTopAppsForTerm(term, country, lang, token string) (AppResponse, error) {
+	auth := NewAuth(token)
+	params := Parameters{Term: term, Country: country, Lang: lang}
+	req := NewAndroidAppTermSearchRequest(auth, params)
+	return req.Run()
+}

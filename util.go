@@ -18,7 +18,8 @@ func bind(body io.ReadCloser, v interface{}) error {
 func getUrlWithParams(url string, params Parameters) string {
 	p := map[string]string{}
 	if params.Term != "" {
-		p["term"] = params.Term
+		terms := strings.Split(params.Term, " ")
+		p["term"] = strings.Join(terms, "%20")
 	}
 	if params.Country != "" {
 		p["country"] = params.Country
