@@ -33,5 +33,5 @@ go test
 
 #### TODO
 * Add feature: Keywords Stats
-* Write documentation
+* Write documentation !
 * Adding more wrappers simple to use
