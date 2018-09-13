@@ -46,5 +46,6 @@ func getRespForApplication(url, id, token string, p Parameters) (io.ReadCloser, 
 	fUrl = getUrlWithParams(fUrl, p)
 	header := make(http.Header)
 	header.Add("X-Apptweak-Key", token)
+
 	return httpGet(fUrl, header)
 }

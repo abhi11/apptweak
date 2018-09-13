@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+
 	"net/http"
 )
 
@@ -13,6 +14,7 @@ func httpRequest(method, url string, header http.Header) (io.ReadCloser, error) 
 	if err != nil {
 		return nil, err
 	}
+
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
@@ -25,6 +27,7 @@ func httpRequest(method, url string, header http.Header) (io.ReadCloser, error) 
 	if resp.StatusCode != http.StatusOK {
 		return nil, errors.New(fmt.Sprintf("error code: %d", resp.StatusCode))
 	}
+
 	return resp.Body, err
 
 }
@@ -48,5 +51,6 @@ func GetTopAppsForTerm(term, country, lang, token string) (AppResponse, error) {
 	auth := NewAuth(token)
 	params := Parameters{Term: term, Country: country, Lang: lang}
 	req := NewAndroidAppTermSearchRequest(auth, params)
+
 	return req.Run()
 }
